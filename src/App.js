@@ -4,47 +4,35 @@ import ReactDOM from 'react-dom';
 class App extends React.Component {
   constructor(){
     super();
-    this.state = { val: 0 };
-    this.update = this.update.bind(this);
+    this.state = {currentEvent: '---'}
+    this.update = this.update.bind(this)
   }
-  update(){
-    this.setState({val: this.state.val + 1 })
-  }
-  componentWillMount(){
-    console.log('componentWillMount')
-  }
-  render(){
-    console.log('render')
-    return <button onClick={this.update}>{this.state.val}</button>
-  }
-  componentDidMount(){
-    console.log('componentDidMount')
-  }
-  componentWillUnmount(){
-    console.log('componentWillUnmount')
-  }
-}
-
-class Wrapper extends React.Component {
-  constructor(){
-    super();
-  }
-  mount(){
-    ReactDOM.render(<App />, document.getElementById('a'))
-  }
-  unmount(){
-    ReactDOM.unmountComponentAtNode(document.getElementById('a'))
+  update(e){
+    this.setState({currentEvent: e.type})
   }
   render(){
     return (
-        <div>
-          <button onClick={this.mount.bind(this)}>Mount</button>
-          <button onClick={this.unmount.bind(this)}>Unmount</button>
-          <div id="a"></div>
-        </div>
+      <div>
+        <textarea
+          onKeyPress={this.update}
+          onCopy={this.update}
+          onCut={this.update}
+          onPaste={this.update}
+          onFocus={this.update}
+          onBlur={this.update}
+          onDoubleClick={this.update}
+          onTouchStart={this.update}
+          onTouchMove={this.update}
+          onTouchEnd={this.update}
+          cols="30"
+          rows="10" />
+        <h1>{this.state.currentEvent}</h1>
+      </div>
     )
   }
 }
 
-
-export default Wrapper
+ReactDOM.render(
+  <App />,
+  document.getElementById('root')
+);
